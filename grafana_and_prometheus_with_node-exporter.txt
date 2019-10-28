@@ -1,0 +1,61 @@
+#################################### prometheus ###########################
+wget https://github.com/prometheus/prometheus/releases/download/v2.13.1/prometheus-2.13.1.linux-amd64.tar.gz
+ 
+tar -zxvf prometheus-2.13.1.linux-amd64.tar.gz
+ 
+cd prometheus-2.13.1.linux-amd64/
+ 
+ls -l
+ 
+./prometheus
+(in web http://localhost:9090/graph)
+(goto status and click tagrets-> click metrics to see all)
+###################################node_exporter###################################################
+wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
+ 
+tar -zxvf node_exporter-0.18.1.linux-amd64.tar.gz
+ 
+cd node_exporter-0.18.1.linux-amd64/
+ 
+ls -l
+ 
+./node_exporter
+http://localhost:9100/
+###########################################################
+To edit,stop the prometheus server first
+vi prometheus.yml
+ 
+# my global config
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+  - job_name: 'node_exporter'
+    static_configs:
+    - targets: ['localhost:9100']  Note: we can add target servers like targets: ['localhost:9100, '104.248.211.89:9100']
+
+start server:
+./prometheus
+(in web http://localhost:9090/graph)
+##################################### Grafana ########################
+wget https://dl.grafana.com/oss/release/grafana-6.4.2.linux-amd64.tar.gz
+ 
+tar -zxvf grafana-6.4.2.linux-amd64.tar.gz
+ 
+cd grafana-6.4.2
+ 
+cd bin/
+ 
+./grafana-cli --verison
+ 
+./grafana-server
+ 
+http://localhost:3000
+provide username and password as "admin"
+goto "Add datasource"-> select prometheus -> select "URL" as http://localhost:9090 -> click "save and test"
+To import grafana dashboards:
+in google-> prometheus node_exporter grafana-> selcet one of dashboard from labs(eg: 1860,...)
+goto granafa console-> click on "+" and se;ect "import" -> add 1860 -> click load -> select local host "prometheus"
