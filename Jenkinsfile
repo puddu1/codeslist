@@ -1,7 +1,7 @@
 node {
     stage('Example') {
         
-            ech 'I only execute on the master branch'
+            echo 'I only execute on the master branch'
          
     }
    try {
