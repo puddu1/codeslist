@@ -6,10 +6,13 @@ node {
             echo 'I execute elsewhere'
         }
     }
-   post { 
-        success { 
-            echo 'code is working'
-            build 'up1'
-        }
+   try {
+        // do something that doesn't fail
+        build 'up1'
+        currentBuild.result = 'SUCCESS'
+    } catch (Exception err) {
+        currentBuild.result = 'FAILURE'
     }
+    echo "RESULT: ${currentBuild.result}"
+     }
 }
