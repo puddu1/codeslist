@@ -6,4 +6,10 @@ node {
             echo 'I execute elsewhere'
         }
     }
+   post { 
+        success { 
+            echo 'code is working'
+            build 'up1'
+        }
+    }
 }
