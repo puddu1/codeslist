@@ -2,9 +2,7 @@ node {
     stage('Example') {
         if (env.BRANCH_NAME == 'maste') {
             echo 'I only execute on the master branch'
-        } else {
-            echo 'I execute elsewhere'
-        }
+        } 
     }
    try {
         // do something that doesn't fail
