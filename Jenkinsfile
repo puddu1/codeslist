@@ -2,6 +2,7 @@ node {
     stage('Example') {
         
             echo 'I only execute on the master branch'
+            echo currentbuild.date
          
     }
    try {
